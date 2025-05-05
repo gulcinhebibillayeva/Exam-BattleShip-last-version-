@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include<vector>
 class Board {
 private:
@@ -13,6 +13,7 @@ public:
 				grid[i][j] = '.';
 		}
 	}
+	
 	~Board() {
 		for (int i = 0; i < 10; ++i)
 			delete[] grid[i];
@@ -22,17 +23,62 @@ public:
 			delete ships[i];
 	}
 
-	void print() const {
+	void print(bool showShips=true) {
 		cout << "  ";
-		for (int j = 0; j < 10; ++j) cout << j << " ";
+		for (int j = 0; j < 10; ++j)
+			cout << j << " ";
 		cout << "\n";
 
 		for (int i = 0; i < 10; ++i) {
 			cout << i << " ";
 			for (int j = 0; j < 10; ++j) {
-				cout << grid[i][j] << " ";
+				char cell = grid[i][j];
+				if (cell == 'S' && !showShips)
+					cout << ". ";
+				else
+				cout << cell << " ";
 			}
 			cout << "\n";
 		}
 	}
+	bool placeShip(const vector<Coordinate>& positions, bool showError = true) {
+		try {
+			
+			for (const auto& pos : positions) {
+				int x = pos.getX(), y = pos.getY();
+				if (x < 0 || x >= 10 || y < 0 || y >= 10 || grid[x][y] != '.') {
+					throw runtime_error("Yer secimi yanlisdir!");
+				}
+
+				
+				for (int dx = -1; dx <= 1; ++dx) {
+					for (int dy = -1; dy <= 1; ++dy) {
+						int nx = x + dx, ny = y + dy;
+						if (nx >= 0 && nx < 10 && ny >= 0 && ny < 10 && grid[nx][ny] == 'S') {
+							throw runtime_error("Gemiler toxunmamali!");
+						}
+					}
+				}
+			}
+
+			
+			Ship* newShip = new Ship(positions);
+
+			
+			for (const auto& pos : positions) {
+				grid[pos.getX()][pos.getY()] = 'S';
+			}
+
+			
+			ships.push_back(newShip);
+			return true;
+		}
+		catch (const exception& ex) {
+			if (showError)
+				cout<< "Error: " << ex.what() << endl;
+			return false;
+		}
+	}
+
+
 };

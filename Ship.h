@@ -1,4 +1,5 @@
 #pragma once
+#include"Coordinate.h"
 class Ship {
 private:
 	Coordinate* positions;
@@ -45,5 +46,6 @@ public:
 		delete[] positions;
 		delete[] hits;
 	}
+	
 
 };

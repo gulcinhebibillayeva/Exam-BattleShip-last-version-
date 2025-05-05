@@ -1,4 +1,4 @@
-
+﻿
 #include <iostream>
 #include<vector>
 #include<string>
@@ -6,10 +6,27 @@ using namespace std;
 #include"Coordinate.h"
 #include"Ship.h"
 #include"Board.h"
+#include"Player.h"
 int main()
-{ Board board;         
-    board.print();
+{
+    Board board;
 
+    board.print(); 
+
+    vector<Coordinate> positions;
+    positions.push_back(Coordinate(1, 1));
+    positions.push_back(Coordinate(1, 2));
+
+    bool success = board.placeShip(positions, true);
+
+    if (success)
+        std::cout << "Ship placed successfully\n";
+    else
+        std::cout << "Failed to place the ship\n";
+
+    board.print(true); 
+
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
