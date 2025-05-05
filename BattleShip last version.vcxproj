@@ -130,6 +130,7 @@
     <ClCompile Include="BattleShip last version.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>

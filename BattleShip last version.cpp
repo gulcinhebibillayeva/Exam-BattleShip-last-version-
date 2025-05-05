@@ -1,13 +1,16 @@
 
 #include <iostream>
 #include<vector>
+#include<string>
 using namespace std;
 #include"Coordinate.h"
 #include"Ship.h"
-
+#include"Board.h"
 int main()
 {
-    
+    Board board;         
+    board.print();
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
