@@ -26,4 +26,5 @@ public:
     void setEnemyBoard(Board* board) {
         enemyBoard = board;
     }
+    virtual bool isBot() const { return false; }
 };

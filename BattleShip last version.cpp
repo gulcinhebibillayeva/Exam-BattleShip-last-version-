@@ -2,29 +2,32 @@
 #include <iostream>
 #include<vector>
 #include<string>
+#include <ctime>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+#include <chrono> 
+#include <thread>
 using namespace std;
 #include"Coordinate.h"
 #include"Ship.h"
 #include"Board.h"
 #include"Player.h"
+#include"BotPlayer.h"
+#include"HumanPlayer.h"
+#include"Game.h"
+
 int main()
-{
-    Board board;
+{ 
+   string name;
+    cout << "Adinizi daxil edin: ";
+    cin >> name;
+    HumanPlayer* player = new HumanPlayer(name);
+    Game game(player, nullptr);  
+    
+    game.setup(player); 
 
-    board.print(); 
-
-    vector<Coordinate> positions;
-    positions.push_back(Coordinate(1, 1));
-    positions.push_back(Coordinate(1, 2));
-
-    bool success = board.placeShip(positions, true);
-
-    if (success)
-        std::cout << "Ship placed successfully\n";
-    else
-        std::cout << "Failed to place the ship\n";
-
-    board.print(true); 
+    cout << "all ships are placed\n";
 
     return 0;
 }
