@@ -7,8 +7,7 @@ using namespace std;
 #include"Ship.h"
 #include"Board.h"
 int main()
-{
-    Board board;         
+{ Board board;         
     board.print();
 
 }

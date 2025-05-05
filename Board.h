@@ -22,7 +22,7 @@ public:
 			delete ships[i];
 	}
 
-	void print(bool showShips = true) const {
+	void print() const {
 		cout << "  ";
 		for (int j = 0; j < 10; ++j) cout << j << " ";
 		cout << "\n";
