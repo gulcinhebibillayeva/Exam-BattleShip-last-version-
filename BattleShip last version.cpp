@@ -1,6 +1,9 @@
 
 #include <iostream>
-using nmespace std;
+#include<vector>
+using namespace std;
+#include"Coordinate.h"
+#include"Ship.h"
 
 int main()
 {
