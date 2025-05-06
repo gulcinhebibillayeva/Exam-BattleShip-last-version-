@@ -46,6 +46,22 @@ public:
 		delete[] positions;
 		delete[] hits;
 	}
-	
+	bool receiveHit(const Coordinate& coord) {
+		for (int i = 0; i < size; ++i) {
+			if (positions[i] == coord) {
+				hits[i] = true;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool isSunk() const {
+		for (int i = 0; i < size; ++i) {
+			if (!hits[i]) return false;
+		}
+		return true;
+	}
+
 
 };

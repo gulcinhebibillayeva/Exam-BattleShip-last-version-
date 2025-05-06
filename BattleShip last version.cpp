@@ -8,7 +8,10 @@
 #include <algorithm>
 #include <chrono> 
 #include <thread>
+#include<conio.h>
+
 using namespace std;
+
 #include"Coordinate.h"
 #include"Ship.h"
 #include"Board.h"
@@ -19,17 +22,55 @@ using namespace std;
 
 int main()
 { 
-   string name;
-    cout << "Adinizi daxil edin: ";
-    cin >> name;
-    HumanPlayer* player = new HumanPlayer(name);
-    Game game(player, nullptr);  
-    
-    game.setup(player); 
+    srand(static_cast<unsigned int>(time(0)));
+  cout << "Welcome to battleShip";
+  cout << "\n PLayer vs Bot";
+  cout << "\n PLayer vs PLayer";
+  cout << "\n Bot vs Bot";
+  cout << "\nSeciminizi edin:";
+  int choosing;
+  cin >> choosing;
+  while (choosing < 1 || choosing > 3) {
+      cout << " Invalid choice. Please try again.\n";
+      cout << "1. Player vs Bot\n";
+      cout << "2. Player vs Player\n";
+      cout << "3. Bot vs Bot\n";
+      cout << "Please make your choice (1-3): ";
+      cin >> choosing;
+  }
+  Player* p1 = nullptr;
+  Player* p2 = nullptr;
+  string name;
+  switch (choosing) {
+  case 1:
+      cout << "Enter your name: ";
+      cin >> name;
+      p1 = new HumanPlayer(name);
+      p2 = new BotPlayer("BOT");
+      break;
+  case 2:
+      cout << "1. Enter first player`s name: ";
+      cin >> name;
+      p1 = new HumanPlayer(name);
+  
+      cout << "2. Enter second player`s name: ";
+      cin >> name;
+      p2 = new HumanPlayer(name);
+      break;
+  case 3:
+      p1 = new BotPlayer("Bot1");
+      p2 = new BotPlayer("Bot2");
+      break;
+  default:
+      cout << "Wrong choose\n";
+      return 0;
+  }
+  Game game(p1, p2);
+  game.play();
 
-    cout << "all ships are placed\n";
+  return 0;
 
-    return 0;
+  
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

@@ -1,5 +1,5 @@
 ﻿#pragma once
-using namespace std;
+
 
 class Game {
 private:
@@ -69,6 +69,51 @@ public:
 
             player->getOwnBoard()->print(!player->isBot()); 
             
+        }
+    }
+
+    void play() {
+        player1->setEnemyBoard(player2->getOwnBoard());
+        player2->setEnemyBoard(player1->getOwnBoard());
+
+
+        setup(player1);
+        setup(player2);
+
+        Player* current = player1;
+        Player* opponent = player2;
+
+        while (true) {
+            cout << current->getName() << " plays:\n";
+            cout << " Enemy board:\n";
+            current->getEnemyBoard()->print(false); 
+
+            
+            if (!current->isBot()) {
+                cout << "Your board:\n";
+                current->getOwnBoard()->print(true);
+            }
+
+            Coordinate target = current->makeMove();
+
+            char result;
+            bool hit = opponent->getOwnBoard()->attack(target, result);
+            current->getEnemyBoard()->attack(target, result); // enemy board-u yenilə
+
+            if (result == 'y')cout << " You got hit!\n";
+            else if (result == 'h') cout << " You sank the ship!\n";
+            else cout << "Miss.\n";
+
+            if (current->isBot()) {
+                this_thread::sleep_for(chrono::milliseconds(800)); // yavaşıt
+            }
+
+            if (opponent->getOwnBoard()->allShipsSunk()) {
+                cout << current->getName() << " win!\n";
+                break;
+            }
+
+            swap(current, opponent);
         }
     }
 };
